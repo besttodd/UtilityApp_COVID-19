@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">UtilityApp_COVID-19</string>
+    <string name="settingsButton">Settings Button</string>
+    <string name="update">Update</string>
+    <string name="recovered">Recovered\n</string>
+    <string name="deaths">Deaths\n</string>
+    <string name="confirmedCases">Confirmed Cases\n</string>
+    <string name="countriesFlag">Countries Flag</string>
+</resources>
