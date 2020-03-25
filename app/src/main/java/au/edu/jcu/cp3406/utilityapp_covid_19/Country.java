@@ -13,86 +13,27 @@ public class Country {
     int deaths;
     int recovered;
     String updatedData;
+    String country;
 
     void Country () {
         cases = 0;
         deaths = 0;
         recovered = 0;
-        String updatedData = "None";
+        updatedData = "None";
+        country = "Not set";
     }
 
-    public void updateInfo(String newData) {
+    public void setInfo(String country) {
+        this.country = country;
+        updatedData = "RAW data";
+
         //Get updated numbers from worldometers.info/coronavirus
-        cases = getCases();
+        cases = 8807;
         deaths = 281;
         recovered = 93;
     }
 
     int getCases() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                URL url = null;
-                InputStream is = null;
-                BufferedReader br = null;
-                StringBuilder builder = new StringBuilder();
-
-                try{
-                    url = new URL("https://www.worldometers.info/coronavirus/country/uk/");
-                    is = url.openStream();
-                    br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-
-                    for (String line; (line = br.readLine()) != null;) { builder.append(line.trim()); }
-
-                } catch (MalformedURLException mue) {
-                    mue.printStackTrace();
-                    System.out.println("MalformedURL22----------------------------------------------");
-                } catch (IOException ioe) {
-                    ioe.printStackTrace();
-                    System.out.println("IOException22----------------------------------------------");
-                } finally {
-                    try {
-                        if (is != null) is.close();
-                    } catch (IOException ioe) {
-                        //
-                    }
-                }
-
-                /*try {
-                    url = new URL("https://www.worldometers.info/coronavirus/country/uk/");
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                    System.out.println("MalformedURL----------------------------------------------");
-                }
-                BufferedReader reader = null;
-                StringBuilder builder = new StringBuilder();
-                try {
-                    reader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
-                    for (String line; (line = reader.readLine()) != null;) {
-                        builder.append(line.trim());
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    System.out.println("IOException----------------------------------------------");
-                } finally {
-                    if (reader != null) try {reader.close();} catch (IOException ignored) {System.out.println("Ignored----------------------------------------------");}
-                }*/
-
-                String start = "<title>United Kingdom Coronavirus: ";
-                String end = "- Worldometer";
-                String part = builder.substring(builder.indexOf(start) + start.length());
-                String actual = part.substring(0, part.indexOf(end));
-                System.out.println(actual);
-                /*String extracting = actual.substring(0, 5);
-                extracting = extracting.replace(",","");
-                System.out.println(extracting);*/
-            }
-        }).start();
-
-        /*String extracting = updatedData.substring(0, 5);
-        extracting = extracting.replace(",","");
-        System.out.println(extracting);
-        cases = Integer.parseInt(extracting);*/
         return cases;
     }
 
@@ -102,5 +43,17 @@ public class Country {
 
     public int getRecovered() {
         return recovered;
+    }
+
+    public void setUpdatedData(String newData) {
+        this.updatedData = newData;
+    }
+
+    String getUpdatedData() {
+        return updatedData;
+    }
+
+    void getNewData() {
+
     }
 }

@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         country.setAdapter(aa);
 
-        currentCountry.updateInfo("selectedCountry");
+        currentCountry.setInfo("selectedCountry");
     }
 
     @Override
@@ -79,9 +79,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         TextView deaths = findViewById(R.id.deathsDisplay);
         TextView recovered = findViewById(R.id.recoveredDisplay);
 
-        cases.append(Integer.toString(currentCountry.getCases()));
-        deaths.append(Integer.toString(currentCountry.getDeaths()));
-        recovered.append(Integer.toString(currentCountry.getRecovered()));
+        cases.setText(String.format("Confirmed Cases\n%s", Integer.toString(currentCountry.getCases())));
+        deaths.setText(String.format("Confirmed Cases\n%s", Integer.toString(currentCountry.getDeaths())));
+        recovered.setText(String.format("Confirmed Cases\n%s", Integer.toString(currentCountry.getRecovered())));
     }
 
     private void setImage(String country) {
