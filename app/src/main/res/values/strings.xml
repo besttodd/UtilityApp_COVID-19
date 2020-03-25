@@ -6,4 +6,7 @@
     <string name="deaths">Deaths\n</string>
     <string name="confirmedCases">Confirmed Cases\n</string>
     <string name="countriesFlag">Countries Flag</string>
+    <string name="rotate_device_for_graph_view">*Rotate device for graph view.</string>
+    <string name="done">Done</string>
+    <string name="graph_of_current_cases">Graph of Current Cases</string>
 </resources>

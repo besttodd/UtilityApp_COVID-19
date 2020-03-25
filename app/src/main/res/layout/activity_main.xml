@@ -86,6 +86,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
-        android:text="*Rotate device for graph view." />
+        android:text="@string/rotate_device_for_graph_view" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>
