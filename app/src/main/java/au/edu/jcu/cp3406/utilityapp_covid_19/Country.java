@@ -1,19 +1,12 @@
 package au.edu.jcu.cp3406.utilityapp_covid_19;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-public class Country {
-    int cases;
-    int deaths;
-    int recovered;
-    String updatedData;
-    String country;
+class Country {
+    private int cases;
+    private int deaths;
+    private int recovered;
+    private String updatedData;
+    private String country;
+    private int img;
 
     void Country () {
         cases = 0;
@@ -21,39 +14,66 @@ public class Country {
         recovered = 0;
         updatedData = "None";
         country = "Not set";
+        img = R.drawable.uk; //DEFAULT
     }
 
-    public void setInfo(String country) {
+    void setInfo(String country) {
         this.country = country;
         updatedData = "RAW data";
 
         //Get updated numbers from worldometers.info/coronavirus
-        cases = 8807;
-        deaths = 281;
-        recovered = 93;
+        //Updated 27/3
+        switch (country) {
+            case "United Kingdom":
+                cases = 14579;
+                deaths = 759;
+                recovered = 135;
+                img = R.drawable.uk;
+                break;
+            case "United States":
+                cases = 86548;
+                deaths = 1321;
+                recovered = 1889;
+                img = R.drawable.usa;
+                break;
+            case "Australia":
+                cases = 3180;
+                deaths = 13;
+                recovered = 170;
+                img = R.drawable.aus;
+                break;
+            case "Italy":
+                cases = 80589;
+                deaths = 8215;
+                recovered = 10361;
+                img = R.drawable.italy;
+                break;
+            case "China":
+                cases = 81340;
+                deaths = 3292;
+                recovered = 74588;
+                img = R.drawable.china;
+                break;
+        }
     }
 
     int getCases() {
         return cases;
     }
 
-    public int getDeaths() {
+    int getDeaths() {
         return deaths;
     }
 
-    public int getRecovered() {
+    int getRecovered() {
         return recovered;
-    }
-
-    public void setUpdatedData(String newData) {
-        this.updatedData = newData;
     }
 
     String getUpdatedData() {
         return updatedData;
     }
 
-    void getNewData() {
-
+    int getImage() {
+        return img;
     }
 }

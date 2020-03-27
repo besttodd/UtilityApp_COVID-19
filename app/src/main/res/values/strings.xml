@@ -9,4 +9,11 @@
     <string name="rotate_device_for_graph_view">*Rotate device for graph view.</string>
     <string name="done">Done</string>
     <string name="graph_of_current_cases">Graph of Current Cases</string>
+    <string-array name="countries">
+        <item>United Kingdom</item>
+        <item>United States</item>
+        <item>Australia</item>
+        <item>Italy</item>
+        <item>China</item>
+    </string-array>
 </resources>

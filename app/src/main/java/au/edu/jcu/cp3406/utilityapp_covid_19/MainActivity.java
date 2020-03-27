@@ -1,45 +1,44 @@
 package au.edu.jcu.cp3406.utilityapp_covid_19;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    String[] countryList = { "United Kingdom", "United States", "Australia", "Italy", "China"};
-    String selectedCountry;
-    Country currentCountry = new Country();
-    boolean settings;
+public class MainActivity extends AppCompatActivity /*implements AdapterView.OnItemSelectedListener*/ {
+    public String selectedCountry = "Australia"; //DEFAULT
+    public Country currentCountry = new Country();
+    public boolean settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Spinner country = findViewById(R.id.country);
-        country.setOnItemSelectedListener(this);
+        if (savedInstanceState != null) {
+            selectedCountry = savedInstanceState.getString("country");
+        }
+        currentCountry.setInfo(selectedCountry);
+        setDisplay();
 
-        ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, countryList);
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        country.setAdapter(aa);
-
-        currentCountry.setInfo("selectedCountry");
+        System.out.println("On CREATE------------------------------------------"+selectedCountry);
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString("country", selectedCountry);
         System.out.println(settings+"------------------------------------------------------------");
         if (!settings) {
             Intent intent = new Intent(this, GraphActivity.class);
-            //intent.putExtra("speed", stopwatch.getSpeed());
+            intent.putExtra("country", selectedCountry);
             startActivityForResult(intent, GraphActivity.SETTINGS_REQUEST);
         }
+
+        System.out.println("SAVE INSTANCE------------------------------------------"+selectedCountry);
     }
 
     @Override
@@ -50,59 +49,34 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             if (resultCode == RESULT_OK) {
                 if (data != null) {
                     settings = false;
+                    selectedCountry = data.getStringExtra("country");
+                    currentCountry.setInfo(selectedCountry);
+                    setDisplay();
+                    System.out.println("Activity RESULT------------------------------------------"+selectedCountry);
                 }
             }
         }
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View arg1, int pos, long id) {
-        selectedCountry = parent.getItemAtPosition(pos).toString();
-        setDisplay();
-        setImage(selectedCountry);
-    }
-
-    public void onNothingSelected(AdapterView<?> arg0) {
-        //
-    }
-
     public void settingsCLicked(View view) {
         Intent intent = new Intent(this, SettingsActivity.class);
-        //intent.putExtra("speed", stopwatch.getSpeed());
+        intent.putExtra("country", selectedCountry);
         startActivityForResult(intent, SettingsActivity.SETTINGS_REQUEST);
 
         settings = true;
     }
 
     private void setDisplay() {
+        TextView title = findViewById(R.id.title);
         TextView cases = findViewById(R.id.casesDisplay);
         TextView deaths = findViewById(R.id.deathsDisplay);
         TextView recovered = findViewById(R.id.recoveredDisplay);
-
-        cases.setText(String.format("Confirmed Cases\n%s", Integer.toString(currentCountry.getCases())));
-        deaths.setText(String.format("Confirmed Cases\n%s", Integer.toString(currentCountry.getDeaths())));
-        recovered.setText(String.format("Confirmed Cases\n%s", Integer.toString(currentCountry.getRecovered())));
-    }
-
-    private void setImage(String country) {
         ImageView image = findViewById(R.id.imageView);
 
-        switch (country) {
-            case "United Kingdom":
-                image.setImageResource(R.drawable.uk);
-                break;
-            case "United States":
-                image.setImageResource(R.drawable.usa);
-                break;
-            case "Australia":
-                image.setImageResource(R.drawable.aus);
-                break;
-            case "Italy":
-                image.setImageResource(R.drawable.italy);
-                break;
-            case "China":
-                image.setImageResource(R.drawable.china);
-                break;
-        }
+        title.setText(selectedCountry);
+        cases.setText(String.format("Confirmed Cases\n%s", Integer.toString(currentCountry.getCases())));
+        deaths.setText(String.format("Deaths\n%s", Integer.toString(currentCountry.getDeaths())));
+        recovered.setText(String.format("Recovered\n%s", Integer.toString(currentCountry.getRecovered())));
+        image.setImageResource(currentCountry.getImage());
     }
 }
