@@ -59,7 +59,7 @@ class Country {
                 /*cases = "80589";
                 deaths = "8215";
                 recovered = "10361";*/
-                url = "https://www.worldometers.info/coronavirus/country/itay/";
+                url = "https://www.worldometers.info/coronavirus/country/italy/";
                 img = R.drawable.italy;
                 //new getNewInfo().execute();
                 break;

@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
         }
         currentCountry.setInfo(selectedCountry);
         new getNewInfo().execute();
-        setDisplay();
 
         System.out.println("On CREATE------------------------------------------"+selectedCountry);
     }
@@ -60,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
                     selectedCountry = data.getStringExtra("country");
                     currentCountry.setInfo(selectedCountry);
                     new getNewInfo().execute();
-                    setDisplay();
                     System.out.println("Activity RESULT------------------------------------------"+selectedCountry);
                 }
             }
@@ -91,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateClicked(View view) {
         new getNewInfo().execute();
-        setDisplay();
     }
 
     public class getNewInfo extends AsyncTask<Void,Void,Void> {
@@ -119,6 +116,12 @@ public class MainActivity extends AppCompatActivity {
                 currentCountry.setRecovered(data[5]);
             }
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            setDisplay();
         }
     }
 }
