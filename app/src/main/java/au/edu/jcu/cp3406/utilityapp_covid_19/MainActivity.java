@@ -4,9 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import java.io.IOException;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -23,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
             selectedCountry = savedInstanceState.getString("country");
         }
         currentCountry.setInfo(selectedCountry);
+        new getNewInfo().execute();
         setDisplay();
 
         System.out.println("On CREATE------------------------------------------"+selectedCountry);
@@ -52,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
                     settings = false;
                     selectedCountry = data.getStringExtra("country");
                     currentCountry.setInfo(selectedCountry);
+                    new getNewInfo().execute();
                     setDisplay();
                     System.out.println("Activity RESULT------------------------------------------"+selectedCountry);
                 }
@@ -79,5 +87,38 @@ public class MainActivity extends AppCompatActivity {
         deaths.setText(String.format("Deaths\n%s", currentCountry.getDeaths()));
         recovered.setText(String.format("Recovered\n%s", currentCountry.getRecovered()));
         image.setImageResource(currentCountry.getImage());
+    }
+
+    public void updateClicked(View view) {
+        new getNewInfo().execute();
+        setDisplay();
+    }
+
+    public class getNewInfo extends AsyncTask<Void,Void,Void> {
+        String rawData;
+        String relevant;
+        String[] data;
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                Document doc = Jsoup.connect(currentCountry.getUrl()).get();
+                rawData = doc.text();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            String start = selectedCountry + " Coronavirus Cases: ";
+            String end = "Active Cases";
+            if (rawData.length() != 0) {
+                relevant = rawData.substring(rawData.indexOf(start) + start.length() - 7);
+                relevant = relevant.substring(0, relevant.indexOf(end));
+                data = relevant.split(" ", 6);
+                currentCountry.setCases(data[1]);
+                currentCountry.setDeaths(data[3]);
+                currentCountry.setRecovered(data[5]);
+            }
+            return null;
+        }
     }
 }

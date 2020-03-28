@@ -22,7 +22,7 @@ class Country {
         country = "Australia";
         url = "https://www.worldometers.info/coronavirus/country/australia/"; //DEFAULT
         img = R.drawable.aus;
-        new getNewInfo().execute();
+        //new getNewInfo().execute();
     }
 
     void setInfo(String country) {
@@ -37,7 +37,7 @@ class Country {
                 recovered = 135;*/
                 url = "https://www.worldometers.info/coronavirus/country/uk/";
                 img = R.drawable.uk;
-                new getNewInfo().execute();
+                //new getNewInfo().execute();
                 break;
             case "United States":
                 /*cases = 86548;
@@ -45,7 +45,7 @@ class Country {
                 recovered = 1889;*/
                 url = "https://www.worldometers.info/coronavirus/country/us/";
                 img = R.drawable.usa;
-                new getNewInfo().execute();
+                //new getNewInfo().execute();
                 break;
             case "Australia":
                 /*cases = "3180";
@@ -53,7 +53,7 @@ class Country {
                 recovered = "170";*/
                 url = "https://www.worldometers.info/coronavirus/country/australia/";
                 img = R.drawable.aus;
-                new getNewInfo().execute();
+                //new getNewInfo().execute();
                 break;
             case "Italy":
                 /*cases = "80589";
@@ -61,7 +61,7 @@ class Country {
                 recovered = "10361";*/
                 url = "https://www.worldometers.info/coronavirus/country/itay/";
                 img = R.drawable.italy;
-                new getNewInfo().execute();
+                //new getNewInfo().execute();
                 break;
             case "China":
                 /*cases = "81340";
@@ -69,7 +69,7 @@ class Country {
                 recovered = "74588";*/
                 url = "https://www.worldometers.info/coronavirus/country/china/";
                 img = R.drawable.china;
-                new getNewInfo().execute();
+                //new getNewInfo().execute();
                 break;
         }
     }
@@ -104,33 +104,5 @@ class Country {
 
     void setRecovered(String recovered) {
         this.recovered = recovered;
-    }
-
-    public class getNewInfo extends AsyncTask<Void,Void,Void> {
-        String rawData;
-        String relevant;
-        String[] data;
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            try {
-                Document doc = Jsoup.connect(url).get();
-                rawData = doc.text();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            String start = country + " Coronavirus Cases: ";
-            String end = "Active Cases";
-            if (rawData.length() != 0) {
-                relevant = rawData.substring(rawData.indexOf(start) + start.length() - 7);
-                relevant = relevant.substring(0, relevant.indexOf(end));
-                data = relevant.split(" ", 6);
-                cases = data[1];
-                deaths = data[3];
-                recovered = data[5];
-            }
-            return null;
-        }
     }
 }
