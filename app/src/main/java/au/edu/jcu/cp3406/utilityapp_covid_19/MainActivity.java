@@ -8,7 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 
-public class MainActivity extends AppCompatActivity /*implements AdapterView.OnItemSelectedListener*/ {
+
+public class MainActivity extends AppCompatActivity {
     public String selectedCountry = "Australia"; //DEFAULT
     public Country currentCountry = new Country();
     public boolean settings;
@@ -74,9 +75,9 @@ public class MainActivity extends AppCompatActivity /*implements AdapterView.OnI
         ImageView image = findViewById(R.id.imageView);
 
         title.setText(selectedCountry);
-        cases.setText(String.format("Confirmed Cases\n%s", Integer.toString(currentCountry.getCases())));
-        deaths.setText(String.format("Deaths\n%s", Integer.toString(currentCountry.getDeaths())));
-        recovered.setText(String.format("Recovered\n%s", Integer.toString(currentCountry.getRecovered())));
+        cases.setText(String.format("Confirmed Cases\n%s", currentCountry.getCases()));
+        deaths.setText(String.format("Deaths\n%s", currentCountry.getDeaths()));
+        recovered.setText(String.format("Recovered\n%s", currentCountry.getRecovered()));
         image.setImageResource(currentCountry.getImage());
     }
 }
