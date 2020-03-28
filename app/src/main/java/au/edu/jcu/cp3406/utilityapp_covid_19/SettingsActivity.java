@@ -28,7 +28,6 @@ public class SettingsActivity extends AppCompatActivity {
     public void doneClicked(View view) {
         selectedCountry = findViewById(R.id.country);
         newCountry = String.valueOf(selectedCountry.getSelectedItem());
-        System.out.println("DONE------------------------------------------"+newCountry);
         Intent intent = new Intent();
         intent.putExtra("country", String.valueOf(selectedCountry.getSelectedItem()));
         setResult(RESULT_OK, intent);
@@ -41,7 +40,6 @@ public class SettingsActivity extends AppCompatActivity {
         for (int i=0;i<spinner.getCount();i++){
             if (spinner.getItemAtPosition(i).equals(country)) {index = i;}
         }
-        System.out.println("GET INDEX------------------------------------------"+selectedCountry);
         return index;
     }
 }

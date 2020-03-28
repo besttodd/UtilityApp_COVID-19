@@ -1,75 +1,49 @@
 package au.edu.jcu.cp3406.utilityapp_covid_19;
 
-import android.os.AsyncTask;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-
-import java.io.IOException;
-
 class Country {
     private String cases;
     private String deaths;
     private String recovered;
-    private String country;
     private String url;
     private int img;
+    private int graph;
 
+    //DEFAULT
     Country() {
-        /*cases = "";
+        cases = "";
         deaths = "";
-        recovered = "";*/
-        country = "Australia";
-        url = "https://www.worldometers.info/coronavirus/country/australia/"; //DEFAULT
-        img = R.drawable.aus;
-        //new getNewInfo().execute();
+        recovered = "";
+        url = "https://www.worldometers.info/coronavirus/country/uk/";
+        img = R.drawable.uk;
     }
 
+    //Get updated numbers from worldometers.info/coronavirus
     void setInfo(String country) {
-        this.country = country;
-
-        //Get updated numbers from worldometers.info/coronavirus
-        //Updated 27/3
         switch (country) {
             case "United Kingdom":
-                /*cases = 14579;
-                deaths = 759;
-                recovered = 135;*/
                 url = "https://www.worldometers.info/coronavirus/country/uk/";
                 img = R.drawable.uk;
-                //new getNewInfo().execute();
+                graph = R.drawable.ukgraph;
                 break;
             case "United States":
-                /*cases = 86548;
-                deaths = 1321;
-                recovered = 1889;*/
                 url = "https://www.worldometers.info/coronavirus/country/us/";
                 img = R.drawable.usa;
-                //new getNewInfo().execute();
+                graph = R.drawable.usgraph;
                 break;
             case "Australia":
-                /*cases = "3180";
-                deaths = "13";
-                recovered = "170";*/
                 url = "https://www.worldometers.info/coronavirus/country/australia/";
                 img = R.drawable.aus;
-                //new getNewInfo().execute();
+                graph = R.drawable.ausgraph;
                 break;
             case "Italy":
-                /*cases = "80589";
-                deaths = "8215";
-                recovered = "10361";*/
                 url = "https://www.worldometers.info/coronavirus/country/italy/";
                 img = R.drawable.italy;
-                //new getNewInfo().execute();
+                graph = R.drawable.italygraph;
                 break;
             case "China":
-                /*cases = "81340";
-                deaths = "3292";
-                recovered = "74588";*/
                 url = "https://www.worldometers.info/coronavirus/country/china/";
                 img = R.drawable.china;
-                //new getNewInfo().execute();
+                graph = R.drawable.chinagraph;
                 break;
         }
     }
@@ -105,4 +79,6 @@ class Country {
     void setRecovered(String recovered) {
         this.recovered = recovered;
     }
+
+    int getGraph() { return graph; }
 }

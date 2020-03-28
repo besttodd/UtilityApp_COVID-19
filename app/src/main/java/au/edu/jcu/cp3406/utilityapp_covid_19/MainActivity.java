@@ -3,6 +3,8 @@ package au.edu.jcu.cp3406.utilityapp_covid_19;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             selectedCountry = savedInstanceState.getString("country");
         }
+        assert selectedCountry != null; //To remove warning
         currentCountry.setInfo(selectedCountry);
         new getNewInfo().execute();
 
@@ -42,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         if (!settings) {
             Intent intent = new Intent(this, GraphActivity.class);
             intent.putExtra("country", selectedCountry);
+            intent.putExtra("graph", currentCountry.getGraph());
             startActivityForResult(intent, GraphActivity.SETTINGS_REQUEST);
         }
 
@@ -57,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 if (data != null) {
                     settings = false;
                     selectedCountry = data.getStringExtra("country");
+                    assert selectedCountry != null; //To remove warning
                     currentCountry.setInfo(selectedCountry);
                     new getNewInfo().execute();
                     System.out.println("Activity RESULT------------------------------------------"+selectedCountry);
@@ -91,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         new getNewInfo().execute();
     }
 
+    @SuppressLint("StaticFieldLeak")
     public class getNewInfo extends AsyncTask<Void,Void,Void> {
         String rawData;
         String relevant;
