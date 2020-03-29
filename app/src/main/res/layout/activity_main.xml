@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:textSize="32dp"
+            android:textSize="32sp"
             android:layout_gravity="center" />
 
         <ImageView
@@ -39,11 +39,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:paddingTop="50dp"
+        android:paddingTop="30dp"
         android:paddingBottom="12dp"
         android:textAlignment="center"
         android:textColor="#FF9800"
-        android:textSize="24dp" />
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/deathsDisplay"
@@ -53,17 +53,17 @@
         android:paddingBottom="12dp"
         android:textAlignment="center"
         android:textColor="#EA281A"
-        android:textSize="24dp" />
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/recoveredDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:paddingBottom="50dp"
+        android:paddingBottom="30dp"
         android:textAlignment="center"
         android:textColor="#4CAF50"
-        android:textSize="24dp" />
+        android:textSize="24sp" />
 
     <Button
         android:id="@+id/updateButton"
@@ -87,7 +87,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="100dp"
-        android:text="@string/rotate_device_for_graph_view" />
+        android:layout_marginTop="50dp"
+        android:text="@string/rotate_device_for_graph_view"
+        android:textSize="16sp"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>
