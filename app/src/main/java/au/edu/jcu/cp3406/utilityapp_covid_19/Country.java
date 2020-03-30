@@ -17,7 +17,6 @@ class Country {
         img = R.drawable.uk;
     }
 
-    //Get updated numbers from worldometers.info/coronavirus
     void setInfo(String country) {
         switch (country) {
             case "United Kingdom":

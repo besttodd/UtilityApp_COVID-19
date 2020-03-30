@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     public String selectedCountry = "Australia"; //DEFAULT
     public Country currentCountry = new Country();
     public boolean settings;
+    public boolean focus = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putString("country", selectedCountry);
         System.out.println(settings+"------------------------------------------------------------");
-        if (!settings) {
+        if (!settings && focus) {
             Intent intent = new Intent(this, GraphActivity.class);
             intent.putExtra("country", selectedCountry);
             intent.putExtra("graph", currentCountry.getGraph());
@@ -68,6 +69,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+
+        focus = hasFocus;
     }
 
     public void settingsCLicked(View view) {
@@ -96,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
         new getNewInfo().execute();
     }
 
+    //Get updated numbers from worldometers.info/coronavirus
     @SuppressLint("StaticFieldLeak")
     public class getNewInfo extends AsyncTask<Void,Void,Void> {
         String rawData;
