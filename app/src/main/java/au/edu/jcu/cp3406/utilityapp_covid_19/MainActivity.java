@@ -18,7 +18,7 @@ import java.io.IOException;
 
 
 public class MainActivity extends AppCompatActivity {
-    public String selectedCountry = "Australia"; //DEFAULT
+    public String selectedCountry = "United Kingdom"; //DEFAULT
     public Country currentCountry = new Country();
     public boolean settings;
     public boolean focus = true;
@@ -34,23 +34,19 @@ public class MainActivity extends AppCompatActivity {
         assert selectedCountry != null; //To remove warning
         currentCountry.setInfo(selectedCountry);
         new getNewInfo().execute();
-
-        System.out.println("On CREATE------------------------------------------"+selectedCountry);
     }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString("country", selectedCountry);
-        System.out.println(settings+"------------------------------------------------------------");
+
         if (!settings && focus) {
             Intent intent = new Intent(this, GraphActivity.class);
             intent.putExtra("country", selectedCountry);
             intent.putExtra("graph", currentCountry.getGraph());
             startActivityForResult(intent, GraphActivity.SETTINGS_REQUEST);
         }
-
-        System.out.println("SAVE INSTANCE------------------------------------------"+selectedCountry);
     }
 
     @Override
@@ -65,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
                     assert selectedCountry != null; //To remove warning
                     currentCountry.setInfo(selectedCountry);
                     new getNewInfo().execute();
-                    System.out.println("Activity RESULT------------------------------------------"+selectedCountry);
                 }
             }
         }
@@ -99,10 +94,6 @@ public class MainActivity extends AppCompatActivity {
         image.setImageResource(currentCountry.getImage());
     }
 
-    public void updateClicked(View view) {
-        new getNewInfo().execute();
-    }
-
     //Get updated numbers from worldometers.info/coronavirus
     @SuppressLint("StaticFieldLeak")
     public class getNewInfo extends AsyncTask<Void,Void,Void> {
@@ -120,7 +111,9 @@ public class MainActivity extends AppCompatActivity {
             }
 
             String start = selectedCountry + " Coronavirus Cases: ";
-            String end = "Active Cases";
+            String end;
+            if (selectedCountry.equals("United States")) { end = "Now";
+            } else { end = "Active Cases"; }
             if (rawData.length() != 0) {
                 relevant = rawData.substring(rawData.indexOf(start) + start.length() - 7);
                 relevant = relevant.substring(0, relevant.indexOf(end));
