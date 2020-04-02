@@ -15,6 +15,7 @@ class Country {
         recovered = "";
         url = "https://www.worldometers.info/coronavirus/country/uk/";
         img = R.drawable.uk;
+        graph = R.drawable.ukgraph;
     }
 
     void setInfo(String country) {

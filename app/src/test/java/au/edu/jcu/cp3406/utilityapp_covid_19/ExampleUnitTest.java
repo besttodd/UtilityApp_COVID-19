@@ -1,12 +1,10 @@
 package au.edu.jcu.cp3406.utilityapp_covid_19;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.junit.Test;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import static org.junit.Assert.*;
 
@@ -23,35 +21,42 @@ public class ExampleUnitTest {
 
     @Test
     public void testGetData() {
-        URL url = null;
+        String rawData = "";
+        String relevant;
+        String[] data = null;
+
         try {
-            url = new URL("https://www.worldometers.info/coronavirus/country/uk/");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            System.out.println("MalformedURL----------------------------------------------");
-        }
-        BufferedReader reader = null;
-        StringBuilder builder = new StringBuilder();
-        try {
-            reader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
-            for (String line; (line = reader.readLine()) != null;) {
-                builder.append(line.trim());
-            }
+            Document doc = Jsoup.connect("https://www.worldometers.info/coronavirus/country/uk").get();
+            rawData = doc.text();
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("IOException----------------------------------------------");
-        } finally {
-            if (reader != null) try {reader.close();} catch (IOException ignored) {System.out.println("Ignored----------------------------------------------");}
         }
 
-        String start = "<title>United Kingdom Coronavirus: ";
-        String end = "- Worldometer";
-        String part = builder.substring(builder.indexOf(start) + start.length());
-        String actual = part.substring(0, part.indexOf(end));
-        System.out.println(actual);
-        String extracting = actual.substring(0, 5);
-        extracting = extracting.replace(",","");
-        System.out.println(extracting);
+        String start = "United Kingdom Coronavirus Cases: ";
+        String end = "Active Cases";
+        if (!rawData.equals("")) {
+            relevant = rawData.substring(rawData.indexOf(start) + start.length() - 7);
+            relevant = relevant.substring(0, relevant.indexOf(end));
+            data = relevant.split(" ", 6);
+        }
+        assert data != null;
+        System.out.println("Cases: " + data[1] + " Deaths: " + data[3] + " Recovered: " + data[5]);
+    }
 
+    @Test
+    public void testConstructor() {
+        Country testCountry = new Country();
+        assertEquals("https://www.worldometers.info/coronavirus/country/uk/", testCountry.getUrl());
+        assertEquals(R.drawable.uk, testCountry.getImage());
+        assertEquals(R.drawable.ukgraph, testCountry.getGraph());
+    }
+
+    @Test
+    public void testCountryClass() {
+        Country testCountry = new Country();
+        testCountry.setInfo("Australia");
+        assertEquals("https://www.worldometers.info/coronavirus/country/australia/", testCountry.getUrl());
+        assertEquals(R.drawable.aus, testCountry.getImage());
+        assertEquals(R.drawable.ausgraph, testCountry.getGraph());
     }
 }
