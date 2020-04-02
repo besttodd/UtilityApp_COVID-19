@@ -1,5 +1,13 @@
 package au.edu.jcu.cp3406.utilityapp_covid_19;
 
+/*
+This class sets up data for a certain country to extract data from the COVID-19 website.
+This includes:
+the URL for that particular country,
+the countries flag image,
+and a graph of current statistics for that particular country
+ */
+
 class Country {
     private String cases;
     private String deaths;

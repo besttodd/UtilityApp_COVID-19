@@ -1,5 +1,10 @@
 package au.edu.jcu.cp3406.utilityapp_covid_19;
 
+/*
+This is the settings activity for the COVID-19 utility app.
+It allows the user to selected their preferred country.
+ */
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;

@@ -1,5 +1,11 @@
 package au.edu.jcu.cp3406.utilityapp_covid_19;
 
+/*
+This activity displays a scrollable screen with 2 graph for the selected country.
+Graphs are NOT up to date. They do NOT represent current figures.
+Implementation coming soon..........
+ */
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
